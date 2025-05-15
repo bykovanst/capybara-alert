@@ -1,0 +1,25 @@
+name: Capybara Checker
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Запуск каждые 5 минут
+  workflow_dispatch:       # Возможность ручного запуска через GitHub UI
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run script
+        run: python capybara_checker.py
